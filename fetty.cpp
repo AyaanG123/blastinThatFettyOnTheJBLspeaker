@@ -16,9 +16,9 @@ int main()
 {
     // 2d vector containing both song artist and song name
     vector<vector<string>> playlist{{"Again", "Fetty Wap"}, {"679(feat.Remy Boyz)", "Fetty Wap (feat. Remy Boyz)"}, {"Trap Queen", "Fetty Wap"}, {"My Way (feat. Monty)", "Fetty Wap (feat. Monty)"}, {"Bando", "Playboi Carti"}, {"24 Songs", "Playboi Carti"}}; // song, artist
+    vector<vector<string>> shuffleCopy;
     int choice;
     int song;
-    int times;
     string addition;
     string additionextra;
     char keepGoing = 'y';
@@ -27,7 +27,7 @@ int main()
     while (keepGoing == 'y')
     {
         cout << "1. Select Song\n2. Add Song\n3. Play in Order\n4. Play Shuffle\n";
-        cout << "What u finna do megatron";
+        cout << "What u finna do megatron ";
         cin >> choice;
 
         switch (choice) // switch case to let user go through options
@@ -44,6 +44,7 @@ int main()
         case 2:
             // add song
             cout << "Enter Song Addition: ";
+            cin.ignore();
             getline(cin, addition);
             cout << "Enter Artist: ";
             getline(cin, additionextra);
@@ -59,28 +60,27 @@ int main()
                 // code to play audio file of the song
 
                 time_t start_time = time(nullptr);
-                while (difftime(time(nullptr), start_time) < 10) // pauses program for 10 seconds
+                while (difftime(time(nullptr), start_time) < 5) // pauses program for 10 seconds
                 {
                 }
             }
             break;
         case 4:
             // play in shuffle
-
-            times = 0;
-            while (times < playlist.size())
+            shuffleCopy = playlist;
+            while (!shuffleCopy.empty())
             {
                 srand(time(0));
-                int ranum = 0 + (rand() % playlist.size()); // creates random number between 0 and playlist length to iterate through
+                int ranum = 0 + (rand() % shuffleCopy.size()); // creates random number between 0 and playlist length to iterate through
 
-                cout << "Currently Playing: " << playlist[ranum][0] << " by " << playlist[ranum][1] << endl;
+                cout << "Currently Playing: " << shuffleCopy[ranum][0] << " by " << shuffleCopy[ranum][1] << endl;
+                shuffleCopy.erase(shuffleCopy.begin() + ranum);
                 // code to play audio file of the song
 
                 time_t start_time = time(nullptr);
                 while (difftime(time(nullptr), start_time) < 10)
                 {
                 }
-                times++;
             }
             break;
         default:
